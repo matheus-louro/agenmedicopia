@@ -1,0 +1,12 @@
+# Criar Diretor
+POST http://localhost:3333/usuarios/diretor
+Content-Type: application/json
+
+{
+    "nome": "Diretor4",
+    "email": "diretor4@gmail.com",
+    "senha": "123456",
+    "cpf": "1234567891DS0",
+    "telefone": "11999999999",
+    "genero": "M"
+}

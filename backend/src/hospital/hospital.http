@@ -1,0 +1,14 @@
+# Rota para criar um novo hospital
+POST http://localhost:3333/hospitais
+Content-Type: application/json
+
+{
+    "nome": "Hospital Teste",
+    "rua": "Rua Teste, 123",
+    "bairro": "Bairro Teste",
+    "cidade": "Cidade Teste",
+    "uf": "SP",
+    "telefone": "(11) 1234-5678",
+    "email": "hospital@gmail.com",
+    "cnpj": "12.345.678/0001-90"
+}

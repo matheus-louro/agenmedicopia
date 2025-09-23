@@ -1,0 +1,137 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Cargo {
+  DIRETOR
+  SECRETARIO
+  MEDICO
+}
+
+model Usuario {
+  id       String  @id @default(uuid())
+  nome     String
+  email    String  @unique
+  senha    String
+  cpf      String  @unique
+  telefone String?
+  cargo    Cargo
+  ativo    Boolean @default(true)
+  genero   String?
+
+  hospitalId String?   @map("hospital_id")
+  hospital   Hospital? @relation(fields: [hospitalId], references: [id])
+
+  medico     Medico?
+  secretario Secretario?
+  diretor    Diretor?
+
+  criadoEm     DateTime @default(now()) @map("criado_em")
+  atualizadoEm DateTime @updatedAt @map("atualizado_em")
+
+  @@map("usuarios")
+}
+
+model Hospital {
+  id       String @id @default(uuid())
+  nome     String
+  rua      String
+  bairro   String
+  cidade   String
+  uf       String
+  telefone String
+  email    String @unique
+  cnpj     String @unique
+
+  usuarios Usuario[]
+
+  criadoEm     DateTime @default(now()) @map("criado_em")
+  atualizadoEm DateTime @updatedAt @map("atualizado_em")
+
+  @@map("hospitais")
+}
+
+model Medico {
+  id        String  @id @default(uuid())
+  crm       String  @unique
+  usuarioId String  @unique @map("usuario_id")
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
+
+  valorConsulta   Float? @default(0.0) @map("valor_consulta")
+  duracaoConsulta Int?   @default(30) @map("duracao_consulta") // duração em minutos: padrão 30 minutos
+
+  relatorios Relatorio[]
+
+  especialidadeId String?        @map("especialidade_id")
+  especialidade   Especialidade? @relation(fields: [especialidadeId], references: [id])
+
+  @@map("medicos")
+}
+
+model Secretario {
+  id        String  @id @default(uuid())
+  usuarioId String  @unique @map("usuario_id")
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
+
+  pacientes Paciente[]
+
+  @@map("secretarios")
+}
+
+model Diretor {
+  id        String  @id @default(uuid())
+  usuarioId String  @unique @map("usuario_id")
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
+
+  @@map("diretores")
+}
+
+model Paciente {
+  id       String  @id @default(uuid())
+  nome     String
+  email    String  @unique
+  cpf      String  @unique
+  telefone String?
+  genero   String?
+
+  cadastradoPorSecretarioId String?     @map("cadastrado_por_secretario_id")
+  cadastradoPorSecretario   Secretario? @relation(fields: [cadastradoPorSecretarioId], references: [id])
+
+  relatorios Relatorio[]
+
+  dataNascimento DateTime? @map("data_nascimento")
+  dataCadastro   DateTime  @default(now()) @map("data_cadastro")
+
+  @@map("pacientes")
+}
+
+model Especialidade {
+  id        String   @id @default(uuid())
+  nome      String
+  descricao String?
+  medicos   Medico[]
+
+  criadoEm     DateTime @default(now()) @map("criado_em")
+  atualizadoEm DateTime @updatedAt @map("atualizado_em")
+
+  @@map("especialidades")
+}
+
+model Relatorio {
+  id         String   @id @default(uuid())
+  conteudo   String
+  medicoId   String   @map("medico_id")
+  medico     Medico?  @relation(fields: [medicoId], references: [id])
+  pacienteId String   @map("paciente_id")
+  paciente   Paciente @relation(fields: [pacienteId], references: [id])
+
+  criadoEm     DateTime @default(now()) @map("criado_em")
+  atualizadoEm DateTime @updatedAt @map("atualizado_em")
+
+  @@map("relatorios")
+}
