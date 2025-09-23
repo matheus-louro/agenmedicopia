@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { UsuarioRepository } from './usuario.repository';
 import { CreateDiretorDto } from './dtos/diretor.dto';
 import { UsuarioJaExisteError } from 'src/erros/usuario-ja-existe.error';
 import * as bcrypt from 'bcryptjs';
 import { Prisma } from '@prisma/client';
+import { UsuarioRepository } from './repositories/usuario.repository';
 
 @Injectable()
 export class UsuarioService {

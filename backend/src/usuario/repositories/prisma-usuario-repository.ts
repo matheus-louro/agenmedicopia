@@ -1,21 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Cargo, Prisma, Usuario } from '@prisma/client';
+import { Prisma, Usuario } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
-
-type CreateUsuarioInput = {
-  nome: string;
-  email: string;
-  senha: string;
-  cpf: string;
-  telefone?: string;
-  genero?: string;
-  hospitalId?: string;
-  cargo: Cargo;
-  ativo: boolean;
-};
-
+import { CreateUsuarioInput, UsuarioRepository } from './usuario.repository';
 @Injectable()
-export class UsuarioRepository {
+export class PrismaUsuarioRepository implements UsuarioRepository {
   constructor(private readonly prisma: PrismaService) {}
   // Comentario para equipe: Adicionei o parametro tx opcional para permitir transações
   async criarUsuario(

@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
 import { CadastroService } from './cadastro.service';
 import { CadastroController } from './cadastro.controller';
-import { UsuarioService } from 'src/usuario/usuario.service';
-import { UsuarioRepository } from 'src/usuario/usuario.repository';
 import { HospitalModule } from 'src/hospital/hospital.module';
+import { UsuarioModule } from 'src/usuario/usuario.module';
 
 @Module({
-  imports: [HospitalModule],
+  imports: [HospitalModule, UsuarioModule],
   controllers: [CadastroController],
-  providers: [CadastroService, UsuarioService, UsuarioRepository],
+  providers: [CadastroService],
 })
 export class CadastroModule {}
