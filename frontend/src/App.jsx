@@ -1,0 +1,20 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Home } from './pages/Home'
+import { Paciente } from './pages/Paciente'
+import { Sobre } from './pages/Sobre'
+import { Cadastro } from './pages/Cadastro'
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/paciente" element={<Paciente />} />
+        <Route path="/sobre" element={<Sobre />} />
+        <Route path="/cadastro" element={<Cadastro />} />
+      </Routes>
+    </Router>
+  )
+}
+
+export default App
