@@ -2,6 +2,7 @@ import React from 'react'
 import { ArrowLeft, LogIn, UserPlus, Stethoscope } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import apresentacaoImg from '../assets/img-apresentacao.jpg'
+import { Rodape } from '@/components/Rodape'
 
 export function Sobre() {
   const navigate = useNavigate()
@@ -9,7 +10,7 @@ export function Sobre() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#d5ffff] via-[#9ce0db] to-[#5dc1b9]">
       {/* Navbar */}
-      <nav className="bg-white/80 backdrop-blur-sm border-b border-white/20">
+      <nav className="bg-white backdrop-blur-sm border-b border-white/20 sticky top-0">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -28,7 +29,10 @@ export function Sobre() {
                 <UserPlus className="w-5 h-5" />
                 Cadastro
               </button>
-              <button className="flex items-center gap-2 bg-[#005954] text-white px-6 py-2 rounded-lg hover:bg-[#338b85] transition-colors font-medium cursor-pointer">
+              <button
+                className="flex items-center gap-2 bg-[#005954] text-white px-6 py-2 rounded-lg hover:bg-[#338b85] transition-colors font-medium cursor-pointer"
+                onClick={() => navigate('/login')}
+              >
                 <LogIn className="w-5 h-5" />
                 Login
               </button>
@@ -110,9 +114,7 @@ export function Sobre() {
                 <span className="text-2xl text-[#005954]">📊</span>
               </div>
               <h3 className="text-xl font-bold mb-3 text-[#005954]">Relatórios Detalhados</h3>
-              <p className="text-[#338b85]">
-                Relatórios completos de ocupação, performance e faturamento.
-              </p>
+              <p className="text-[#338b85]">Não tem isso nao</p>
             </div>
 
             <div className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-white/20 text-center">
@@ -139,13 +141,7 @@ export function Sobre() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#005954] text-white py-2">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <pre className="text-sm font-sans whitespace-pre-wrap">
-            {`© 2025 AgenMedi - Sistema de gerenciamento de consultas hospitalares\n\nTodos os direitos reservados.`}
-          </pre>
-        </div>
-      </footer>
+      <Rodape />
     </div>
   )
 }

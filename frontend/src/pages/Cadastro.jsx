@@ -58,7 +58,7 @@ export function Cadastro() {
 
     try {
       const apiUrl = import.meta.env.VITE_BACKEND_URL
-      // Aqui você faz a requisição para o backend
+
       const response = await fetch(`${apiUrl}/cadastro/diretor-hospital`, {
         method: 'POST',
         headers: {
@@ -67,7 +67,7 @@ export function Cadastro() {
         body: JSON.stringify(dadosParaEnviar),
       })
 
-      if (response) {
+      if (response.status === 201) {
         const resultado = await response.json()
         alert('Cadastro realizado com sucesso!')
         console.log('Resposta do backend:', resultado)
@@ -377,7 +377,7 @@ export function Cadastro() {
             <div className="mt-10 text-center">
               <button
                 type="submit"
-                className="bg-[#005954] text-white px-12 py-4 rounded-lg hover:bg-[#338b85] transition-alls text-lg font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+                className="cursor-pointer bg-[#005954] text-white px-12 py-4 rounded-lg hover:bg-[#338b85] transition-alls text-lg font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
               >
                 Finalizar Cadastro
               </button>

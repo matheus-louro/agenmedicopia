@@ -1,6 +1,7 @@
 import React from 'react'
 import { User, Hospital } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { Input } from '@/components/ui/input'
 
 export function Home() {
   const navigate = useNavigate()
